@@ -58,5 +58,20 @@ pipeline {
         failure {
             echo 'Le pipeline a échoué! ❌'
         }
+
+        success {
+            slackSend(
+                channel: '#devops-notifications',
+                color: 'good',
+                message: "✅ Build réussi : ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Voir les détails>)"
+            )
+        }
+        failure {
+            slackSend(
+                channel: '#devops-notifications',
+                color: 'danger',
+                message: "❌ Build échoué : ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Voir les détails>)"
+            )
+        }
     }
 }
