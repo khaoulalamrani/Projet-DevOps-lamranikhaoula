@@ -54,12 +54,6 @@ pipeline {
     post {
         success {
             echo 'Pipeline exécuté avec succès! ✅'
-        }
-        failure {
-            echo 'Le pipeline a échoué! ❌'
-        }
-
-        success {
             slackSend(
                 channel: '#devops-notifications',
                 color: 'good',
@@ -67,6 +61,7 @@ pipeline {
             )
         }
         failure {
+            echo 'Le pipeline a échoué! ❌'
             slackSend(
                 channel: '#devops-notifications',
                 color: 'danger',
